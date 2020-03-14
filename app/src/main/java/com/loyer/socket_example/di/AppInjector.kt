@@ -29,7 +29,9 @@ object AppInjector {
 
             override fun onActivityStopped(activity: Activity) {}
 
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                handleActivity(activity)
+            }
 
             override fun onActivityResumed(activity: Activity) {}
         })

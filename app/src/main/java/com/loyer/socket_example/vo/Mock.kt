@@ -1,0 +1,6 @@
+package com.loyer.socket_example.vo
+
+data class Mock(
+    val id: Int,
+    val name: String
+)
