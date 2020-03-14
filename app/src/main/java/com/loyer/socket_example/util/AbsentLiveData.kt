@@ -1,4 +1,4 @@
-package com.loyer.socket_example
+package com.loyer.socket_example.util
 
 import androidx.lifecycle.LiveData
 

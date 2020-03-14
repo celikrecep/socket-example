@@ -1,6 +1,6 @@
-package com.loyer.socket_example.network.util
+package com.loyer.socket_example.data_manager.network.util
 
-import com.loyer.socket_example.network.util.Status.*
+import com.loyer.socket_example.data_manager.network.util.Status.*
 data class Resource<out T>(
     val status: Status,
     val data: T?,

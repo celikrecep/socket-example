@@ -1,11 +1,11 @@
-package com.loyer.socket_example
+package com.loyer.socket_example.data_manager.network.repository
 
 import androidx.lifecycle.LiveData
 import com.loyer.socket_example.base.AppExecutors
-import com.loyer.socket_example.network.Api
-import com.loyer.socket_example.network.util.ApiResponse
-import com.loyer.socket_example.network.util.NetworkServiceWrapper
-import com.loyer.socket_example.network.util.Resource
+import com.loyer.socket_example.data_manager.network.Api
+import com.loyer.socket_example.data_manager.network.util.ApiResponse
+import com.loyer.socket_example.data_manager.network.util.NetworkServiceWrapper
+import com.loyer.socket_example.data_manager.network.util.Resource
 import com.loyer.socket_example.vo.Mock
 import com.loyer.socket_example.vo.MockResponse
 import javax.inject.Inject

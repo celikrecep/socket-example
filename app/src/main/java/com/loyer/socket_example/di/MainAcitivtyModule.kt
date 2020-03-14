@@ -1,6 +1,6 @@
 package com.loyer.socket_example.di
 
-import com.loyer.socket_example.MainActivity
+import com.loyer.socket_example.ui.activity.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

@@ -1,10 +1,10 @@
-package com.loyer.socket_example.network.di
+package com.loyer.socket_example.data_manager.network.di
 
 import com.google.gson.Gson
-import com.loyer.socket_example.network.Api
-import com.loyer.socket_example.network.socket.SocketManager
-import com.loyer.socket_example.network.socket.SocketManagerImpl
-import com.loyer.socket_example.network.util.AppCallAdapterFacotry
+import com.loyer.socket_example.data_manager.network.Api
+import com.loyer.socket_example.data_manager.network.socket.SocketManager
+import com.loyer.socket_example.data_manager.network.socket.SocketManagerImpl
+import com.loyer.socket_example.data_manager.network.util.AppCallAdapterFacotry
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

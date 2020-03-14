@@ -1,4 +1,4 @@
-package com.loyer.socket_example.network.socket
+package com.loyer.socket_example.data_manager.network.socket
 
 sealed class SocketState {
     companion object {

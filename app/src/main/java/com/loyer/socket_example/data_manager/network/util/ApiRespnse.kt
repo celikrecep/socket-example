@@ -1,4 +1,4 @@
-package com.loyer.socket_example.network.util
+package com.loyer.socket_example.data_manager.network.util
 
 import retrofit2.Response
 

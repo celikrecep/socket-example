@@ -1,9 +1,9 @@
-package com.loyer.socket_example.network.util
+package com.loyer.socket_example.data_manager.network.util
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.loyer.socket_example.AbsentLiveData
+import com.loyer.socket_example.util.AbsentLiveData
 import com.loyer.socket_example.base.AppExecutors
 
 abstract class NetworkServiceWrapper<ResultType, RequestType>

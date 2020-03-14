@@ -1,9 +1,7 @@
-package com.loyer.socket_example.network.socket
+package com.loyer.socket_example.data_manager.network.socket
 
 import com.google.gson.Gson
-import com.loyer.socket_example.network.di.JSON_CONVERTER
-import com.loyer.socket_example.util.Util
-import com.loyer.socket_example.vo.Mock
+import com.loyer.socket_example.data_manager.network.di.JSON_CONVERTER
 import okhttp3.*
 import okio.ByteString
 import timber.log.Timber

@@ -1,11 +1,13 @@
-package com.loyer.socket_example
+package com.loyer.socket_example.ui.activity.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.loyer.socket_example.network.socket.*
-import com.loyer.socket_example.network.util.Resource
+import com.loyer.socket_example.data_manager.network.socket.*
+import com.loyer.socket_example.data_manager.network.util.Resource
+import com.loyer.socket_example.data_manager.network.repository.MainRepository
+import com.loyer.socket_example.util.InitialLiveData
 import com.loyer.socket_example.vo.Mock
 import javax.inject.Inject
 

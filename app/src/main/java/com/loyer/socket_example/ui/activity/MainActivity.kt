@@ -1,6 +1,7 @@
-package com.loyer.socket_example
+package com.loyer.socket_example.ui.activity
 
 import android.os.Bundle
+import com.loyer.socket_example.R
 import com.loyer.socket_example.base.BaseActivity
 
 class MainActivity : BaseActivity() {

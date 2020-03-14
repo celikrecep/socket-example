@@ -1,18 +1,17 @@
-package com.loyer.socket_example
+package com.loyer.socket_example.ui.activity.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.loyer.socket_example.R
 import com.loyer.socket_example.base.BaseFragment
-import com.loyer.socket_example.network.Api
-import com.loyer.socket_example.network.socket.ConnectedState
-import com.loyer.socket_example.network.socket.Connecting
-import com.loyer.socket_example.network.socket.ConnectionErrorState
-import com.loyer.socket_example.network.socket.DisconnectedState
-import okhttp3.*
-import okio.ByteString
+import com.loyer.socket_example.data_manager.network.socket.ConnectedState
+import com.loyer.socket_example.data_manager.network.socket.Connecting
+import com.loyer.socket_example.data_manager.network.socket.ConnectionErrorState
+import com.loyer.socket_example.data_manager.network.socket.DisconnectedState
+import com.loyer.socket_example.ui.activity.data.MainViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -56,7 +55,8 @@ class HomeFragment : BaseFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = HomeFragment()
+        fun newInstance() =
+            HomeFragment()
     }
 
     override fun onDestroy() {

@@ -2,7 +2,7 @@ package com.loyer.socket_example.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.loyer.socket_example.MainViewModel
+import com.loyer.socket_example.ui.activity.data.MainViewModel
 import com.loyer.socket_example.base.AppViewModelFactory
 import com.loyer.socket_example.di.qualifier.ViewModelKey
 import dagger.Binds
