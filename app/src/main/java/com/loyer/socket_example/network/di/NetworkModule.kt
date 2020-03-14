@@ -2,6 +2,8 @@ package com.loyer.socket_example.network.di
 
 import com.google.gson.Gson
 import com.loyer.socket_example.network.Api
+import com.loyer.socket_example.network.socket.SocketManager
+import com.loyer.socket_example.network.socket.SocketManagerImpl
 import com.loyer.socket_example.network.util.AppCallAdapterFacotry
 import dagger.Module
 import dagger.Provides
@@ -18,7 +20,7 @@ import javax.inject.Singleton
 private const val TIMEOUT_MILLIS = "timeout_millis"
 private const val TIMEOUT_UNIT = "timeout_unit"
 private const val API_URL = "api_url"
-private const val JSON_CONVERTER = "json_converter"
+const val JSON_CONVERTER = "json_converter"
 
 @Module
 class NetworkModule {
@@ -97,5 +99,11 @@ class NetworkModule {
     @Singleton
     fun provideApi(retrofit: Retrofit): Api {
         return retrofit.create(Api::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSocketManager(socketManager: SocketManagerImpl): SocketManager {
+        return socketManager
     }
 }

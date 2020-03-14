@@ -53,6 +53,7 @@ dependencies {
     implementation deps.dagger.runtime
     implementation deps.dagger.android
     implementation deps.dagger.android_support
+    implementation deps.dagger.find_bug
 
     // Logging
     implementation deps.timber
@@ -60,10 +61,6 @@ dependencies {
     // rxBinding
     implementation deps.rx.binding_kotlin
 
-    // webSocket
-    implementation(deps.other.socketIO) {
-        exclude group: 'org.json', module: 'json'
-    }
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt deps.dagger.android_support_compiler
