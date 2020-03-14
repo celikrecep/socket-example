@@ -39,8 +39,8 @@ class SocketManagerImpl @Inject constructor(
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         when {
-            text.contains(LOGIN) -> _socketDataChangeListener?.onChangeLoginState(true)
-            text.contains(LOGOUT) -> _socketDataChangeListener?.onChangeLoginState(false)
+            text.contains(LOGIN) && !text.any { it.isDigit() } -> _socketDataChangeListener?.onChangeLoginState(true)
+            text.contains(LOGOUT) && !text.any { it.isDigit() } -> _socketDataChangeListener?.onChangeLoginState(false)
             else -> {
                 var id = -1
                 try {
