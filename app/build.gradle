@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        applicationId "com.loyer.socket_example"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    //Core
+    implementation deps.constraint_layout
+    implementation deps.kotlin.stdlib
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
+    implementation deps.support.design
+    implementation deps.support.core_ktx
+    implementation deps.support.fragment_ktx
+    implementation deps.support.nav_manager
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.java8
+    implementation deps.lifecycle.extensions
+
+    // Retrofit
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.okhttp_logging_interceptor
+
+    // Dagger
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+
+    // Logging
+    implementation deps.timber
+
+    // rxBinding
+    implementation deps.rx.binding_kotlin
+
+    // webSocket
+    implementation(deps.other.socketIO) {
+        exclude group: 'org.json', module: 'json'
+    }
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+    kapt deps.lifecycle.compiler
+}
+
+repositories {
+    mavenCentral()
+}
