@@ -2,6 +2,7 @@ package com.loyer.socket_example.ui.activity.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -17,6 +18,8 @@ import com.loyer.socket_example.data_manager.network.socket.DisconnectedState
 import com.loyer.socket_example.data_manager.network.util.Status
 import com.loyer.socket_example.ui.activity.data.MainViewModel
 import com.loyer.socket_example.ui.activity.fragments.adapter.MockRvAdapter
+import com.loyer.socket_example.util.hideKeyboardFrom
+import com.loyer.socket_example.vo.Mock
 import kotlinx.android.synthetic.main.fragment_home.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -42,6 +45,7 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initMockList()
         onObserveData()
+        initClickListeners()
         viewModel.onConnectSocket()
         viewModel.onFetchMockList(true)
     }
@@ -69,7 +73,11 @@ class HomeFragment : BaseFragment() {
         })
 
         viewModel.socketResponse.observe(viewLifecycleOwner, Observer {
-            Timber.d("socketResponse $it")
+            if (it.status == Status.Success && it.data != null) {
+                updateValue(it.data)
+            } else if (it.status == Status.Error) {
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+            }
         })
     }
 
@@ -78,10 +86,30 @@ class HomeFragment : BaseFragment() {
         mockList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 
+    private fun initClickListeners() {
+        send.setOnClickListener {
+            if (value.text.toString().isNotEmpty()) {
+                viewModel.sendData(value.text.toString())
+                hideKeyboardFrom(context, value.windowToken)
+                value.setText("")
+            }
+        }
+    }
+
+    private fun updateValue(modal: Mock) {
+        viewModel.mockList.value?.data?.find { data ->
+            data.id == modal.id
+        }?.apply {
+            id = modal.id
+            name = modal.name
+            adapter.updateItem(modal.id)
+        }
+    }
+
+
     companion object {
         @JvmStatic
-        fun newInstance() =
-            HomeFragment()
+        fun newInstance() = HomeFragment()
     }
 
 }

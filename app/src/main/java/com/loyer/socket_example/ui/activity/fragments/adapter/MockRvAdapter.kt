@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.list_item_mock.view.*
 
 class MockRvAdapter(
     private val list: MutableList<Mock>
-): RecyclerView.Adapter<MockRvAdapter.MockViewHolder>() {
+) : RecyclerView.Adapter<MockRvAdapter.MockViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MockViewHolder {
         return MockViewHolder(parent.inflate(R.layout.list_item_mock))
     }
@@ -27,10 +27,15 @@ class MockRvAdapter(
         notifyDataSetChanged()
     }
 
-    fun updateItem(mock: Mock) {
-
+    fun updateItem(id: Int) {
+        val mock = list.find { it.id == id }
+        val index = list.indexOf(mock)
+        if (index != -1) {
+            notifyItemChanged(index)
+        }
     }
-    inner class MockViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+
+    inner class MockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(modal: Mock) {
             itemView.mockId.text = modal.revisedId
             itemView.mockValue.text = modal.name

@@ -1,24 +1,22 @@
 package com.loyer.socket_example.data_manager.network.socket
 
-import android.os.Handler
-import com.google.gson.Gson
 import com.loyer.socket_example.base.AppExecutors
-import com.loyer.socket_example.data_manager.network.di.JSON_CONVERTER
+import com.loyer.socket_example.vo.Mock
 import okhttp3.*
 import okio.ByteString
 import timber.log.Timber
+import java.lang.NumberFormatException
 import javax.inject.Inject
-import javax.inject.Named
 
 private const val SOCKET_URL = "wss://echo.websocket.org"
 private const val CLOSED_FROM_APP = 1000
 private const val SOCKET_CLOSE_REASON = "hey wazzup!"
 private const val UNKNOWN_ERROR = "unknown_error"
-private const val PARSE_EXCEPTION = "json parse exception"
 private const val LOGOUT = "LOGOUT"
 private const val LOGIN = "LOGIN"
+private const val UNSUPPORTED_INPUT = "unsupported text"
+
 class SocketManagerImpl @Inject constructor(
-    @Named(JSON_CONVERTER) private val jsonConverter: Gson,
     private val appExecutors: AppExecutors
 ) : WebSocketListener(), SocketManager {
     private var _socketStateChangeListener: SocketStateChangeListener? = null
@@ -44,9 +42,22 @@ class SocketManagerImpl @Inject constructor(
             text.contains(LOGIN) -> _socketDataChangeListener?.onChangeLoginState(true)
             text.contains(LOGOUT) -> _socketDataChangeListener?.onChangeLoginState(false)
             else -> {
-                Timber.d("socket $text")
-                //val data = Util.convertFromJson<Mock>(text, jsonConverter)
-                //_socketDataChangeListener?.onDataReceived(data)
+                var id = -1
+                try {
+                    id = String(text.takeWhile {
+                        it.isDigit()
+                    }.toCharArray()).toInt()
+                } catch (e: NumberFormatException) {
+                    Timber.d(e.localizedMessage)
+                }
+                if (id == -1) {
+                    _socketDataChangeListener?.onDataReceivedFail(UNSUPPORTED_INPUT)
+                    return
+                }
+                val name = text.replace("\\d".toRegex(), "")
+                appExecutors.mainThread().execute {
+                    _socketDataChangeListener?.onDataReceived(Mock(id, name))
+                }
             }
         }
     }

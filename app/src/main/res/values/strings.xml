@@ -2,4 +2,6 @@
     <string name="app_name">socket-example</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="send">Send</string>
+    <string name="example_value">2 Foo</string>
 </resources>
