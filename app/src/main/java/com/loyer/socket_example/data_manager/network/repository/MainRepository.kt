@@ -14,11 +14,13 @@ import javax.inject.Singleton
 @Singleton
 class MainRepository @Inject constructor(
     private val appExecutors: AppExecutors,
-    private val api: Api) {
+    private val api: Api
+) {
 
     fun onFetchMockList(): LiveData<Resource<List<Mock>>> {
         return object : NetworkServiceWrapper<List<Mock>, MockResponse>(appExecutors) {
             override fun onParseResponse(data: MockResponse): List<Mock> {
+                (data.data as MutableList).sortBy { it.id }
                 return data.data
             }
 

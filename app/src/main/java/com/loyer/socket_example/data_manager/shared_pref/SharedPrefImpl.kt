@@ -1,8 +1,6 @@
 package com.loyer.socket_example.data_manager.shared_pref
 
 import android.content.SharedPreferences
-import com.loyer.socket_example.data_manager.shared_pref.SharedPref
-import com.loyer.socket_example.data_manager.shared_pref.SharedPrefKeys
 import javax.inject.Inject
 
 class SharedPrefImpl @Inject constructor(
