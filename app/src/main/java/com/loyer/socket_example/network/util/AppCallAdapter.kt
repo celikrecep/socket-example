@@ -1,4 +1,4 @@
-package com.loyer.socket_example.network
+package com.loyer.socket_example.network.util
 
 import androidx.lifecycle.LiveData
 import retrofit2.Call

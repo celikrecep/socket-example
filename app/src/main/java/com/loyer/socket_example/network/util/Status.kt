@@ -1,4 +1,4 @@
-package com.loyer.socket_example.network
+package com.loyer.socket_example.network.util
 
 enum class Status {
     Success,

@@ -1,7 +1,8 @@
 package com.loyer.socket_example.network.di
 
 import com.google.gson.Gson
-import com.loyer.socket_example.network.AppCallAdapterFacotry
+import com.loyer.socket_example.network.Api
+import com.loyer.socket_example.network.util.AppCallAdapterFacotry
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -17,13 +18,13 @@ import javax.inject.Singleton
 private const val TIMEOUT_MILLIS = "timeout_millis"
 private const val TIMEOUT_UNIT = "timeout_unit"
 private const val API_URL = "api_url"
-private const val JSON_CONVERTER = "gson"
+private const val JSON_CONVERTER = "json_converter"
 
 @Module
 class NetworkModule {
     @Provides
     @Named(API_URL)
-    fun providePrimaryURl(): String = ""
+    fun providePrimaryURl(): String = "https://my-json-server.typicode.com/"
 
     @Provides
     @Named(TIMEOUT_MILLIS)
@@ -78,7 +79,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    @Named(API_URL)
     fun provideRetrofit(
         @Named(API_URL) url: String,
         converterFactory: Converter.Factory,
@@ -91,5 +91,11 @@ class NetworkModule {
             .addCallAdapterFactory(callAdapterFactory)
             .client(client)
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideApi(retrofit: Retrofit): Api {
+        return retrofit.create(Api::class.java)
     }
 }
