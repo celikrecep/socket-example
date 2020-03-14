@@ -1,6 +1,8 @@
 package com.loyer.socket_example.data_manager.network.socket
 
+import android.os.Handler
 import com.google.gson.Gson
+import com.loyer.socket_example.base.AppExecutors
 import com.loyer.socket_example.data_manager.network.di.JSON_CONVERTER
 import okhttp3.*
 import okio.ByteString
@@ -13,8 +15,11 @@ private const val CLOSED_FROM_APP = 1000
 private const val SOCKET_CLOSE_REASON = "hey wazzup!"
 private const val UNKNOWN_ERROR = "unknown_error"
 private const val PARSE_EXCEPTION = "json parse exception"
+private const val LOGOUT = "LOGOUT"
+private const val LOGIN = "LOGIN"
 class SocketManagerImpl @Inject constructor(
-    @Named(JSON_CONVERTER) private val jsonConverter: Gson
+    @Named(JSON_CONVERTER) private val jsonConverter: Gson,
+    private val appExecutors: AppExecutors
 ) : WebSocketListener(), SocketManager {
     private var _socketStateChangeListener: SocketStateChangeListener? = null
     private var _socketDataChangeListener: SocketDataReceivedListener? = null
@@ -35,8 +40,15 @@ class SocketManagerImpl @Inject constructor(
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        //val data = Util.convertFromJson<Mock>(text, jsonConverter)
-        //_socketDataChangeListener?.onDataReceived(data)
+        when {
+            text.contains(LOGIN) -> _socketDataChangeListener?.onChangeLoginState(true)
+            text.contains(LOGOUT) -> _socketDataChangeListener?.onChangeLoginState(false)
+            else -> {
+                Timber.d("socket $text")
+                //val data = Util.convertFromJson<Mock>(text, jsonConverter)
+                //_socketDataChangeListener?.onDataReceived(data)
+            }
+        }
     }
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {

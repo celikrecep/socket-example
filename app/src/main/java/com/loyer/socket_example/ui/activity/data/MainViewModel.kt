@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.loyer.socket_example.data_manager.network.repository.MainRepository
 import com.loyer.socket_example.data_manager.network.socket.*
 import com.loyer.socket_example.data_manager.network.util.Resource
-import com.loyer.socket_example.data_manager.network.repository.MainRepository
 import com.loyer.socket_example.util.InitialLiveData
 import com.loyer.socket_example.vo.Mock
 import javax.inject.Inject
@@ -18,6 +18,7 @@ class MainViewModel @Inject constructor(
     private val _onFetchMockList = MutableLiveData(false)
     private val _socketState = MutableLiveData<SocketState>(Connecting)
     private val _socketResponse = MutableLiveData<Resource<Mock>>()
+    private val _loginState = MutableLiveData(false)
 
     init {
         socketManager.setDataReceivedListener(this)
@@ -36,6 +37,9 @@ class MainViewModel @Inject constructor(
 
     val socketResponse: LiveData<Resource<Mock>>
         get() = _socketResponse
+
+    val loginState: LiveData<Boolean>
+        get() = _loginState
 
     override fun onConnect() {
         _socketState.postValue(SocketState.onConnected())
@@ -61,6 +65,10 @@ class MainViewModel @Inject constructor(
         _socketResponse.postValue(Resource.error(message, null))
     }
 
+    override fun onChangeLoginState(isLogin: Boolean) {
+        _loginState.postValue(isLogin)
+    }
+
     fun onFetchMockList(isFetchMockList: Boolean) {
         if (_onFetchMockList.value == isFetchMockList)
             return
@@ -75,7 +83,7 @@ class MainViewModel @Inject constructor(
         socketManager.onDisconnect()
     }
 
-   fun sendData(text: String) {
-       socketManager.sendData(text)
-   }
+    fun sendData(text: String) {
+        socketManager.sendData(text)
+    }
 }
